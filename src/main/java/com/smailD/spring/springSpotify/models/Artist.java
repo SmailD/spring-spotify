@@ -15,4 +15,11 @@ public class Artist {
     @JsonProperty("genres")
     public List<String> genres;
 
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
