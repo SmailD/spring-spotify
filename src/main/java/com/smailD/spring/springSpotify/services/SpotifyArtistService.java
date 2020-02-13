@@ -47,6 +47,16 @@ public class SpotifyArtistService {
                 .doOnNext(track -> log.info(track.toString()));
     }
 
+    public Flux<Artist> getArtistRelatedArtists(String spotifyId) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder.path("/artists/" + spotifyId + "/related-artists").build())
+                .retrieve()
+                .bodyToMono(ListOfArtists.class)
+                .map(ListOfArtists::getArtists)
+                .flatMapMany(Flux::fromIterable)
+                .doOnNext(track -> log.info(track.toString()));
+    }
+
     public Flux<Artist> getArtists(String spotifyIds) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
